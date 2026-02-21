@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <title>Month</title>
+        <meta name="author" content="Jay Zuerndorfer" />
+
+        <style>
+            body {
+                background: #333;
+                width: 100vw;
+                height: 100vh;
+                margin: 0;
+            }
+
+            label {
+                position: absolute;
+                top: 20vh;
+                height: 25vh;
+                left: 1vw;
+                width: 10vw;
+
+                background: #d6837a;
+                box-shadow: 5px 5px;
+                border-radius: 10px;
+                text-align: center;
+
+                transition: all 1s;
+            }
+
+            label:active {
+                transform: translate(4px, 4px);
+                box-shadow: 1px 1px;
+            }
+
+            input:checked~label {
+                left: 89vw;
+                top: 55vh;
+                background: #6e72c3;
+            }
+
+            label div {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            /* label span {
+                position: absolute;
+                top: 0;
+                left: 0;
+            } */
+
+            #plan {
+                opacity: 1;
+            }
+            #real {
+                opacity: 0;
+            }
+
+            input:checked~label #plan {
+                opacity: 0;
+            }
+            input:checked~label #real {
+                opacity: 1;
+            }
+
+            img {
+                position: absolute;
+                top: 2.5vh;
+                bottom: 2.5vh;
+                height: 95vh;
+                left: 12vw;
+                right: 12vw;
+                width: 76vw;
+
+                object-fit: contain;
+            }
+
+            .after {
+                mask-image:
+                    linear-gradient(90deg, black 40%, transparent 60%),
+                    linear-gradient(90deg, black 40%, transparent 60%),
+                    linear-gradient(90deg, black 40%, transparent 60%),
+                    linear-gradient(90deg, black 40%, transparent 60%),
+                    linear-gradient(90deg, black 40%, transparent 60%);
+                mask-repeat: no-repeat;
+                mask-size: 300% 19%;
+                mask-position: 100% 8%, 100% 31%, 100% 54%, 100% 77%, 100% 100%;
+            }
+
+            input~.after.active {
+                animation: 10s slideout forwards;
+            }
+            input:checked~.after.active {
+                animation: 10s slidein forwards;
+            }
+
+            @keyframes slidein {
+                0%   { mask-position: 100% 8%, 100% 31%, 100% 54%, 100% 77%, 100% 100%; }
+                20%  { mask-position:   0% 8%, 100% 31%, 100% 54%, 100% 77%, 100% 100%; }
+                40%  { mask-position:   0% 8%,   0% 31%, 100% 54%, 100% 77%, 100% 100%; }
+                60%  { mask-position:   0% 8%,   0% 31%,   0% 54%, 100% 77%, 100% 100%; }
+                80%  { mask-position:   0% 8%,   0% 31%,   0% 54%,   0% 77%, 100% 100%; }
+                100% { mask-position:   0% 8%,   0% 31%,   0% 54%,   0% 77%,   0% 100%; }
+            }
+            
+            @keyframes slideout {
+                100% { mask-position: 100% 8%, 100% 31%, 100% 54%, 100% 77%, 100% 100%; }
+                80%  { mask-position:   0% 8%, 100% 31%, 100% 54%, 100% 77%, 100% 100%; }
+                60%  { mask-position:   0% 8%,   0% 31%, 100% 54%, 100% 77%, 100% 100%; }
+                40%  { mask-position:   0% 8%,   0% 31%,   0% 54%, 100% 77%, 100% 100%; }
+                20%  { mask-position:   0% 8%,   0% 31%,   0% 54%,   0% 77%, 100% 100%; }
+                0%   { mask-position:   0% 8%,   0% 31%,   0% 54%,   0% 77%,   0% 100%; }
+            }
+
+        </style>
+    </head>
+    <body>
+        <input type="checkbox" id="checkbox" hidden>
+        <label for="checkbox">
+            <div id="plan"><span>What I planned on doing...</span></div>
+            <div id="real"><span>What actually happened</span></div>
+        </label>
+        <img src="before.png">
+        <img id="after" class="after" src="after.png">
+
+        <script>
+            document.getElementById("checkbox").addEventListener("click", ()=>document.getElementById("after").classList.add("active"));
+        </script>
+    </body>
+</html>
