@@ -11,7 +11,7 @@
                 margin: 0;
             }
 
-            label {
+            #calendar-checkbox-label {
                 position: absolute;
                 top: 20vh;
                 height: 25vh;
@@ -22,22 +22,23 @@
                 box-shadow: 5px 5px;
                 border-radius: 10px;
                 text-align: center;
+                z-index: 5;
 
                 transition: all 1s;
             }
 
-            label:active {
+            #calendar-checkbox:active {
                 transform: translate(4px, 4px);
                 box-shadow: 1px 1px;
             }
 
-            input:checked~label {
+            #calendar-checkbox:checked~#calendar-checkbox-label {
                 left: 89vw;
                 top: 55vh;
                 background: #6e72c3;
             }
 
-            label div {
+            #calendar-checkbox-label div {
                 position: absolute;
                 height: 100%;
                 width: 100%;
@@ -46,12 +47,6 @@
                 justify-content: center;
             }
 
-            /* label span {
-                position: absolute;
-                top: 0;
-                left: 0;
-            } */
-
             #plan {
                 opacity: 1;
             }
@@ -59,23 +54,20 @@
                 opacity: 0;
             }
 
-            input:checked~label #plan {
+            #calendar-checkbox:checked~#calendar-checkbox-label #plan {
                 opacity: 0;
             }
-            input:checked~label #real {
+            #calendar-checkbox:checked~#calendar-checkbox-label #real {
                 opacity: 1;
             }
 
             img {
                 position: absolute;
-                top: 2.5vh;
-                bottom: 2.5vh;
+                top: 50vh;
+                left: 50vw;
                 height: 95vh;
-                left: 12vw;
-                right: 12vw;
-                width: 76vw;
 
-                object-fit: contain;
+                transform: translate(-50%, -50%);
             }
 
             .after {
@@ -86,48 +78,99 @@
                     linear-gradient(90deg, black 40%, transparent 60%),
                     linear-gradient(90deg, black 40%, transparent 60%);
                 mask-repeat: no-repeat;
-                mask-size: 300% 19%;
+                mask-size: 300% 17%;
                 mask-position: 100% 8%, 100% 31%, 100% 54%, 100% 77%, 100% 100%;
             }
 
-            input~.after.active {
-                animation: 10s slideout forwards;
+            #calendar-checkbox~.after.active {
+                animation: 2s slideout forwards;
             }
-            input:checked~.after.active {
+            #calendar-checkbox:checked~.after.active {
                 animation: 10s slidein forwards;
             }
 
             @keyframes slidein {
-                0%   { mask-position: 100% 8%, 100% 31%, 100% 54%, 100% 77%, 100% 100%; }
-                20%  { mask-position:   0% 8%, 100% 31%, 100% 54%, 100% 77%, 100% 100%; }
-                40%  { mask-position:   0% 8%,   0% 31%, 100% 54%, 100% 77%, 100% 100%; }
-                60%  { mask-position:   0% 8%,   0% 31%,   0% 54%, 100% 77%, 100% 100%; }
-                80%  { mask-position:   0% 8%,   0% 31%,   0% 54%,   0% 77%, 100% 100%; }
-                100% { mask-position:   0% 8%,   0% 31%,   0% 54%,   0% 77%,   0% 100%; }
+                0%   { mask-position: 100% 8%, 100% 31%, 100% 54%, 100% 77%, 100% 95%; }
+                20%  { mask-position:   0% 8%, 100% 31%, 100% 54%, 100% 77%, 100% 95%; }
+                40%  { mask-position:   0% 8%,   0% 31%, 100% 54%, 100% 77%, 100% 95%; }
+                60%  { mask-position:   0% 8%,   0% 31%,   0% 54%, 100% 77%, 100% 95%; }
+                80%  { mask-position:   0% 8%,   0% 31%,   0% 54%,   0% 77%, 100% 95%; }
+                100% { mask-position:   0% 8%,   0% 31%,   0% 54%,   0% 77%,   0% 95%; }
             }
             
             @keyframes slideout {
                 100% { mask-position: 100% 8%, 100% 31%, 100% 54%, 100% 77%, 100% 100%; }
-                80%  { mask-position:   0% 8%, 100% 31%, 100% 54%, 100% 77%, 100% 100%; }
-                60%  { mask-position:   0% 8%,   0% 31%, 100% 54%, 100% 77%, 100% 100%; }
-                40%  { mask-position:   0% 8%,   0% 31%,   0% 54%, 100% 77%, 100% 100%; }
-                20%  { mask-position:   0% 8%,   0% 31%,   0% 54%,   0% 77%, 100% 100%; }
                 0%   { mask-position:   0% 8%,   0% 31%,   0% 54%,   0% 77%,   0% 100%; }
+            }
+
+            #info-checkbox-label {
+                position: absolute;
+                height: 0px;
+                width: 0px;
+                top: 90vh;
+                left: 94vw;
+                opacity: 0.5;
+
+                padding: 20px;
+                border-radius: 10px;
+                background: #eee;
+                transform: translate(-50%, -50%);
+                overflow: hidden;
+                z-index: 5;
+
+                transition: 1s all;
+            }
+
+            .info {
+                height: 40vh;
+                width: 55vw;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+            }
+
+            .info .icon {
+                position: absolute;
+                left: 20px;
+                top: 20px;
+                transform: translate(-50%, -50%);
+            }
+
+            #info-checkbox:checked~#info-checkbox-label {
+                left: 50vw;
+                top: 50vh;
+                height: 40vh;
+                width: 55vw;
+                opacity: 1;
             }
 
         </style>
     </head>
     <body>
-        <input type="checkbox" id="checkbox" hidden>
-        <label for="checkbox">
-            <div id="plan"><span>What I planned on doing...</span></div>
-            <div id="real"><span>What actually happened</span></div>
+        <div class="main">
+            <input type="checkbox" id="calendar-checkbox" hidden>
+            <label id="calendar-checkbox-label" for="calendar-checkbox">
+                <div id="plan"><span>What I planned on doing...</span></div>
+                <div id="real"><span>What actually happened</span></div>
+            </label>
+            <img src="before.png">
+            <img id="after" class="after" src="after.png">
+        </div>
+
+        <input type="checkbox" id="info-checkbox" hidden>
+        <label id="info-checkbox-label" for="info-checkbox">
+            <div class="info">
+                <div class="icon">ℹ️</div>
+                <div class="text">
+                    In early 2024, I was diagnosed with non-hodgkins lymphoma. These are screenshots from my calendars at that time. This was inspired by a recent experience, when I received a reminder of an upcoming appointment with my oncologist despite the fact that my calendar was completely empty. I realized that about 6 months ago, at the point where I had been in remission for 1 year, I had hidden the “Lymphoma” calendar because I thought I was done with it. Crazy how different a life looks just from turning one calendar on and off.
+                </div>
+                <!-- <div>-<a href="https://jzplusplus.com">Jay</a></div> -->
+                <div>-Jay</div>
+            </div>
         </label>
-        <img src="before.png">
-        <img id="after" class="after" src="after.png">
 
         <script>
-            document.getElementById("checkbox").addEventListener("click", ()=>document.getElementById("after").classList.add("active"));
+            document.getElementById("calendar-checkbox").addEventListener("click", ()=>document.getElementById("after").classList.add("active"));
         </script>
     </body>
 </html>
